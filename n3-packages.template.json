@@ -1,0 +1,57 @@
+{
+  "configVersion": "1.0",
+  "generated": "REPLACE_ME",
+  "note": "真實套件的範本:把這筆複製一份到 n3-packages.json 的 packages 陣列裡,逐欄位填實值。md5 與 sha256 至少要有其中一個(兩個都有會兩項都驗);一個都沒有會被安裝器直接拒絕。",
+  "packages": [
+    {
+      "id": "client",
+      "name": "N3Client.7z",
+      "version": "1.0.25",
+      "type": "archive",
+      "size": 1234567890,
+      "md5": "32 位十六進位,用 certutil -hashfile N3Client.7z MD5",
+      "sha256": "64 位十六進位,用 certutil -hashfile N3Client.7z SHA256",
+      "required": true,
+      "installOrder": 10,
+      "archiveType": "7z",
+      "installParams": ["-y"],
+      "requiredFiles": ["N3.exe", "Data", "Config"],
+      "sources": [
+        { "name": "MEGA", "url": "https://mega.nz/file/REPLACE_ME#REPLACE_KEY" },
+        { "name": "MediaFire", "url": "https://www.mediafire.com/file/REPLACE_ME" },
+        { "name": "GoogleDrive", "url": "https://drive.google.com/uc?id=REPLACE_ME" }
+      ]
+    },
+    {
+      "id": "resource",
+      "name": "N3Resource.7z",
+      "version": "1.0.25",
+      "type": "archive",
+      "size": 500000000,
+      "sha256": "64 位十六進位",
+      "required": true,
+      "installOrder": 20,
+      "archiveType": "7z",
+      "requiredFiles": ["Data"],
+      "sources": [
+        { "name": "GoogleDrive", "url": "https://drive.google.com/uc?id=REPLACE_ME" },
+        { "name": "自建CDN", "url": "https://你的網域/n3/N3Resource.7z" }
+      ]
+    },
+    {
+      "id": "update",
+      "name": "N3UpdatePack.7z",
+      "version": "1.0.26",
+      "type": "archive",
+      "size": 1048576,
+      "sha256": "64 位十六進位",
+      "required": false,
+      "installOrder": 30,
+      "archiveType": "7z",
+      "requiredFiles": ["patch.cfg"],
+      "sources": [
+        { "name": "自建CDN", "url": "https://你的網域/n3/N3UpdatePack.7z" }
+      ]
+    }
+  ]
+}

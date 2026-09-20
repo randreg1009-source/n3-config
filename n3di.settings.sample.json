@@ -1,0 +1,15 @@
+{
+  "settingsVersion": "1.0",
+  "note": "這份要放在 N3DownloaderInstaller.exe 旁邊,檔名改成 n3di.settings.json。它是『引導清單』:安裝器先照 configUrls 順序取配置(第一個失敗就換下一個),取到的配置仍要通過嚴格式校驗。遠端配置內容本身完全不寫死在程式裡。",
+  "configUrls": [
+    "https://raw.githubusercontent.com/randreg1009-source/n3-config/main/n3-packages.json",
+    "https://cdn.jsdelivr.net/gh/randreg1009-source/n3-config@main/n3-packages.json"
+  ],
+  "pinnedUrlHint": "需要鎖版本時把 @main 換成 @<commit SHA>,例如 …/n3-config@1a2b3c4/n3-packages.json",
+  "cacheDir": "cache",
+  "stagingDir": "cache\\_staging",
+  "connections": 4,
+  "keepPackagesAfterInstall": true,
+  "configSigningPublicKeySpkiBase64": "",
+  "minConfigSerial": 0
+}
