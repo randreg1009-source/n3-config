@@ -1,4 +1,4 @@
-{
+{"serial": 1,
   "configVersion": "1.0",
   "generated": "2026-09-20",
   "note": "這是 N3 下載器/安裝器讀取的正式配置。目前只掛一個『鏈路驗證用』套件(smoketest),因為它是現在唯一真實可下載、可驗證雜湊的內容,用来證明 抓取→校驗→快取 整條鏈路正確。真正的 N3 客戶端/資源/更新套件上傳完成後,把 n3-packages.template.json 裡的欄位填好追加到 packages 即可,smoketest 那一筆可以留著當健檢項目。",

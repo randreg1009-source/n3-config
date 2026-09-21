@@ -37,15 +37,30 @@ N3 下載器 / 安裝器讀取的**遠端配置**存放處（公開 repo，走 `
    "D:\N3_D3D11\DownloaderInstaller\out\Release\N3DownloaderInstaller.exe" --validate-config n3-packages.json
    ```
    看到 `結論: 配置可接受` + 正確的任務清單才推。有 `ERROR` 就照 `CFGnnn` 的說明修（任何一項 Error 都會讓整份配置被拒）。
-5. 推送：
+5. 簽章（鑰匙在硬碟上也要先明確同意它放硬碟）：
+   ```
+   set N3DI_KEYDIR=C:\Users\%USERNAME%\n3-keys
+   set N3DI_ON_DISK=1
+   sign.cmd 22
+   check-sig.cmd
+   ```
+   **第一次請填 `sign.cmd 1`**：現有配置還沒有頂層 `serial`，而安裝器對「已驗證簽章但缺 serial」的配置會直接拒收。
+   `sign.cmd <新 serial>` 會先把**頂層** `serial` 改成該整數（只動 `"packages"` 之前的檔頭區間，不寫 BOM），
+   再對「配置檔的原始位元組」簽一併写出 `n3-packages.json.sig`（base64 RSA-SHA256）。
+   `check-sig.cmd` 用 openssl 獨立驗一次，應該出現 `Verified OK`。
+   `pubkey.cmd`：公鑰匯出失敗或想確認公鑰時重跑（只會問 passphrase，不會重新生鑰匙；它會檢查 DER 必須 294 bytes、base64 必須 392 bytes）。
+   serial 只要**不減**就好（安裝器記著用過的最大值，比它小的配置會被當降級攻擊拒收）。
+6. 推送：
    ```
    publish.cmd "client 1.0.26"
    ```
    （或自己 `git add -A && git commit -m "…" && git push`。）
+   **`n3-packages.json` 與 `n3-packages.json.sig` 必須同一個 commit**：遠端配置缺 `.sig` 會被安裝器直接拒收。
 
 ## 三條紀律
 
 1. **不要刪除已發佈過的檔案/commit**：舊版安裝器還在取同一個 URL，刪掉會全部紅。要撤版本就
    `git revert` 或把檔案改回上一版內容再推，而不是把檔拿掉。
+3. **先推配置+簽章，再發新安裝器**：安裝器內建公鑰之後，「線上沒有 `.sig` 的配置」會被拒收（不是警告）。所以發佈順序一定是：`sign.cmd` → 兩檔同 commit 推送 → 才換上內建公鑰的安裝器。
 2. **雜湊是唯一判斷標準**：不要用檔名、大小、修改時間判斷新舊；`version` 只给人看。
 3. 這個 repo 是**公開**的：不要在此放 token、私鑰、帳號、內網網域。RSA 私鑰永遠不進這裡。

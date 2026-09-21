@@ -1,1 +1,11 @@
 .selftest/
+
+# Defense in depth: signing material must never be committable here, even by accident.
+*.pem
+*.pvk
+*.p12
+*.key
+n3di-config-sign*
+sig.tmp.der
+pub.der
+pub.pem
