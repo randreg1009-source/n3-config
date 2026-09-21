@@ -1,0 +1,11 @@
+# Signed artifacts: git must not touch a single byte, otherwise the signature stops matching.
+*.json  -text
+*.sig   -text
+*.b64   -text
+
+# Batch scripts need CRLF at checkout (and are not signed, so the blob may be LF).
+*.cmd   text eol=crlf
+*.bat   text eol=crlf
+
+# Docs: keep LF so git add stops warning about the working copy.
+*.md    text eol=lf
