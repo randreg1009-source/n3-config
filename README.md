@@ -17,8 +17,8 @@ N3 下載器 / 安裝器讀取的**遠端配置**存放處（公開 repo，走 `
 
 ## 檔名與角色
 
-- `n3-packages.json` —— **線上生效的配置**（安裝器唯一會抓的檔案）。目前只掛一筆 `smoketest`，用途是把
-  「抓取 → 嚴格式校驗 → 下載 → 雜湊複驗 → 進快取」這條鏈路保持在**可随时验证**的状态；真實套件上線後照範本追加即可。
+- `n3-packages.json` —— **線上生效的配置**（安裝器唯一會抓的檔案）。目前一筆 `nageclient`（2026-09-23 從歷史遺留的 `smoketest` 正名，`version` 同時抬到 `1.0.27`、移除程式從不讀取的 `type` 欄），用途是把
+  「抓取 → 嚴格式校驗 → 下載 → 雜湊複驗 → 進快取 → 解壓安裝」這條鏈路保持在**隨時可驗證**的狀態；真實/額外套件上線後照範本追加即可。
 - `n3-packages.template.json` —— 真實套件（client / resource / update）的欄位範本，`REPLACE_ME` 那些**不會**被安裝器讀取。
 - `n3di.settings.sample.json` —— 放進**安裝器目錄**用的引導清單範本（改名成 `n3di.settings.json` 放在 exe 旁邊）。
 
@@ -68,7 +68,7 @@ set NDI=D:\N3_D3D11\DownloaderInstaller\out\Release\N3DownloaderInstaller.exe
    出現任何 `ERROR`（`CFGnnn`）整份會被拒 —— 照說明修，不要放過。
 4. **真的抓一次**，這一步才算驗到連結：
    ```
-   %NDI% --run n3-packages.json --cache %TEMP%\n3check --only <套件的 id，例如 smoketest> --no-skip
+   %NDI% --run n3-packages.json --cache %TEMP%\n3check --only <套件的 id，例如 nageclient> --no-skip
    ```
    - `--no-skip` 是重點：不加它、快取裡還有舊檔時會直接跳過下載，等於沒測。
    - 大檔可以加 `--limit-ms 8000` 只跑幾秒，看解析與傳輸是否真的啟動（會留 `.cldpart`，測完把 `%TEMP%\n3check` 刪掉）。

@@ -1,7 +1,7 @@
-{"serial": 4,
+{"serial": 5,
   "configVersion": "1.0",
   "generated": "2026-09-20",
-  "note": "這是 N3 下載器/安裝器讀取的正式配置。目前只掛一個『鏈路驗證用』套件(smoketest),因為它是現在唯一真實可下載、可驗證雜湊的內容,用来證明 抓取→校驗→快取 整條鏈路正確。真正的 N3 客戶端/資源/更新套件上傳完成後,把 n3-packages.template.json 裡的欄位填好追加到 packages 即可,smoketest 那一筆可以留著當健檢項目。",
+  "note": "這是 N3 下載器/安裝器讀取的正式配置。目前一個套件：nageclient（NageWhale_20260610.zip），三個來源（MEGA/MediaFire/GoogleDrive）都已實測過 抓取→校驗→快取→解壓→requiredFiles 整條鏈路。2026-09-23：把 id 從歷史遺留的 smoketest 正名為 nageclient、version 從 1.0 正名為 1.0.27，並移除程式从不讀取的 type 欄位；改 id 会让舊記錄作廢，已裝過的機器會被要求重裝一次（沿用已驗證快取、不重抓）。",
   "ui": {
     "launchExe": "NageLauncher.exe",
     "discordUrl": "https://discord.gg/nzBpEMNxzC",
@@ -9,10 +9,9 @@
   },
   "packages": [
     {
-      "id": "smoketest",
+      "id": "nageclient",
       "name": "NageWhale_20260610.zip",
-      "version": "1.0",
-      "type": "link-check",
+      "version": "1.0.27",
       "size": 781519195,
       "md5": "bfb517d4a8bd7d740371389495cd8f95",
       "sha256": "202cdcb284fd78a0d8dff24366f85e818a5765a2aad611c0de529bde5bd4d269",
